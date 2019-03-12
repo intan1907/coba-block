@@ -35,7 +35,7 @@ public class Block {
             matrices[1].xor(matrices[2]);
             matrices[2].xor(matrices[3]);
 
-
+            feistel();
         }
     }
 
@@ -46,13 +46,14 @@ public class Block {
             matrices[2].xor(matrices[3]);
             matrices[1].xor(matrices[2]);
             matrices[0].xor(matrices[1]);
-            
+
             // operasi setiap matrix 
             for (int operation = i, j = 0; operation < i + 4; operation++) {
                 matrices[j].operate((operation % 4), false);
                 j++;
             }
-  
+
+            feistel();
         }
     }
 
@@ -73,10 +74,34 @@ public class Block {
             j++;
         }
     }
-    
-    public void xor (Block other) {
-        for (int i = 0; i < 4; i++){
+
+    public void xor(Block other) {
+        for (int i = 0; i < 4; i++) {
             matrices[i].xor(other.matrices[i]);
         }
+    }
+
+    public void feistel() {
+        
+        //temp untuk swap
+        Matrix temp0 = new Matrix(matrices[0].getM());
+        Matrix temp1 = new Matrix(matrices[1].getM());
+        //left di-transform
+        transform(temp0, temp1);
+        Matrix temp2 = new Matrix(matrices[2].getM());
+        Matrix temp3 = new Matrix(matrices[3].getM());
+        //
+        temp0 = new Matrix(temp2.getM());
+        temp1 = new Matrix(temp3.getM());
+        temp2 = new Matrix(temp0.getM());
+        temp3 = new Matrix(temp1.getM());
+    }
+
+    public void transform(Matrix m1, Matrix m2) {
+        // xor antara left dengan key
+        // asumsi key sama panjangnya dengan jumlah elemen matrix
+        int[] key = StringHelper.toIntArr("0110000101101100");
+        m1.xor(key);
+        m2.xor(key);
     }
 }

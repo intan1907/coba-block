@@ -94,6 +94,14 @@ public class Matrix {
             }
         }
     }
+    
+    public void xor(int[] other){
+        for (int i = 0; i < len; i++) {
+            for (int j = 0; j < len; j++) {
+                M[i][j] = (M[i][j] == other[i*len + (j)]) ? 0 : 1;
+            }
+        }
+    }
 
     /*  operasi ke-1: shift column,
         operasi ke-2: inverse

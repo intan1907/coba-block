@@ -69,8 +69,8 @@ public class BlockChiper {
         long endE = System.nanoTime();
 
         long startDec = System.nanoTime();
-        BlockChiper bd = new BlockChiper();
-        codec(bd.getBlocks(), 1, false);
+        
+        codec(bc.getBlocks(), 1, false);
         long endDec = System.nanoTime();
         System.out.println("enc time: " + (endE - startE) / 1000 + " microseconds");
 
