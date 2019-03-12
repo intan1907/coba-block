@@ -23,24 +23,37 @@ public class Block {
     }
 
     public void encryptBlock() {
-        for (int i = 1; i <= 4; i++) {
-            System.out.println("======iter " + i + ":");
+        for (int i = 1; i <= 8; i++) {
+//            System.out.println("======iter " + i + ":");
             // operasi setiap matrix 
             for (int operation = i, j = 0; operation < i + 4; operation++) {
-                matrices[j].operate((operation % 4) + 1, true);
+                matrices[j].operate((operation % 4), true);
                 j++;
             }
-            Matrix temp0 = new Matrix(matrices[0].getM());
+
             matrices[0].xor(matrices[1]);
             matrices[1].xor(matrices[2]);
             matrices[2].xor(matrices[3]);
-            matrices[3].xor(temp0);
-            printMatrices();
+
+
         }
     }
 
     public void decryptBlock() {
+        for (int i = 8; i >= 1; i--) {
+//            System.out.println("======iter " + i + ":");
 
+            matrices[2].xor(matrices[3]);
+            matrices[1].xor(matrices[2]);
+            matrices[0].xor(matrices[1]);
+            
+            // operasi setiap matrix 
+            for (int operation = i, j = 0; operation < i + 4; operation++) {
+                matrices[j].operate((operation % 4), false);
+                j++;
+            }
+  
+        }
     }
 
     @Override
@@ -58,6 +71,12 @@ public class Block {
             System.out.println("matrix " + j + ":");
             m.print();
             j++;
+        }
+    }
+    
+    public void xor (Block other) {
+        for (int i = 0; i < 4; i++){
+            matrices[i].xor(other.matrices[i]);
         }
     }
 }

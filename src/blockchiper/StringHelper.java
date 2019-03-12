@@ -5,6 +5,9 @@
  */
 package blockchiper;
 
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+
 /**
  *
  * @author intan
@@ -46,5 +49,20 @@ public class StringHelper {
             result[i] = Integer.parseInt(bits.substring(i, i+1));
         }
         return result;
+    }
+    
+    public static String bitStringToString(String raw){
+        // to byte
+        byte[] bval = new BigInteger(raw, 2).toByteArray();
+        // to string
+        return new String(bval, StandardCharsets.UTF_8);
+    }
+
+    static String[] groupTo8(String s, int div) {
+        String [] res = new String[div];
+        for (int i = 0; i < div; i++) {
+            res[i] = s.substring(8*i, (i+1)*8);
+        }
+        return res;
     }
 }

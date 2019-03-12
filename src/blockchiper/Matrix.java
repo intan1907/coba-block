@@ -100,6 +100,7 @@ public class Matrix {
         operasi ke-3: transpose
         operasi ke-4: shift row */
     public void operate(int operation, boolean encode) {
+//        System.out.println(operation);
         switch (operation) {
             case 1:
                 shiftColumn(encode);
@@ -110,7 +111,7 @@ public class Matrix {
             case 3:
                 transpose();
                 break;
-            case 4:
+            case 0:
                 shiftRow(encode);
         }
     }
