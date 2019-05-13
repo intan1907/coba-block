@@ -21,7 +21,7 @@ public class StringHelper {
         }
         return b;
     }
-    
+
     // to 8 bit
     public static String toBitString(final byte[] b) {
         final char[] bits = new char[8 * b.length];
@@ -41,28 +41,44 @@ public class StringHelper {
         }
         return String.valueOf(bits);
     }
-    
+
     //from string to int
-    public static int[] toIntArr(String bits){
+    public static int[] toIntArr(String bits) {
         int[] result = new int[bits.length()];
-        for (int i = 0; i < bits.length(); i++){
-            result[i] = Integer.parseInt(bits.substring(i, i+1));
+        for (int i = 0; i < bits.length(); i++) {
+            result[i] = Integer.parseInt(bits.substring(i, i + 1));
         }
         return result;
     }
-    
-    public static String bitStringToString(String raw){
+
+    public static String bitStringToString(String raw) {
         // to byte
         byte[] bval = new BigInteger(raw, 2).toByteArray();
         // to string
         return new String(bval, StandardCharsets.UTF_8);
     }
 
-    static String[] groupTo8(String s, int div) {
-        String [] res = new String[div];
+    public static String[] groupTo8(String s, int div) {
+        String[] res = new String[div];
         for (int i = 0; i < div; i++) {
-            res[i] = s.substring(8*i, (i+1)*8);
+            res[i] = s.substring(8 * i, (i + 1) * 8);
         }
         return res;
     }
+
+    public static String[] groupTo64(String s, int div) {
+        String[] res = new String[div];
+        for (int i = 0; i < div; i++) {
+            res[i] = s.substring(64 * i, (i + 1) * 64);
+        }
+        return res;
+    }
+
+    public static String hexToBin(String hex) {
+        int i = Integer.parseInt(hex, 16);
+        String bin = Integer.toBinaryString(256 + i).substring(1);
+
+        return bin;
+    }
+
 }
